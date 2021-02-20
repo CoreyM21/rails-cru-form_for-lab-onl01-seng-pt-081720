@@ -1,40 +1,40 @@
-class ArtistsController < ApplicationController
+class SongsController < ApplicationController
 
-    before_action :find_artist, only: [:show, :update, :edit]
+    before_action :find_song, only: [:show, :update, :edit]
 
     def index
-        @artists = Artist.all
+        @songs = Song.all
     end
 
     def show
     end
 
     def new
-        @artist = Artist.new
+        @song = Song.new
     end
 
     def create
-        @artist = Artist.new(artist_params(:name, :bio))
-        @artist.save
-        redirect_to artist_path(@artist)
+        @song = Song.new(song_params(:name, :artist_id, :genre_id))
+        @song.save
+        redirect_to song_path(@song)
     end
 
     def edit
     end
 
     def update
-        @artist = Artist.update(artist_params(:name, :bio))
-        redirect_to artist_path(@artist)
+        @song = Song.update(song_params(:name, :artist_id, :genre_id))
+        redirect_to song_path(@song)
     end
 
     private
 
-    def find_artist
-        @artist = Artist.find(params[:id])
+    def find_song
+        @song = Song.find(params[:id])
     end
 
-    def artist_params(*args)
-        params.require(:artist).permit(*args)
+    def song_params(*args)
+        params.require(:song).permit(*args)
     end
-    
+
 end
